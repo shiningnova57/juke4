@@ -4,13 +4,10 @@
 		<p ng-show="playlistForm.playlistName.$error.maxlength">That's too long!</p>
 		<p ng-show="playlistForm.$invalid && playlistForm.$dirty">Playlist name is required!</p>
 		<input name = "playlistName" type= "text" placeholder ="Playlist Title" ng-model= "playlist.name" ng-maxlength = "16" required>
-		
-
-
 
 		<button ng-click ="click()" ng-disabled="playlistForm.$invalid" >Submit</button>
 	</form>
 
-		<pre>{{playlistForm | json }}</pre>
+		<pre ng-show="goAway">{{playlistForm | json }}</pre>
 
 </div>

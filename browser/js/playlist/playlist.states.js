@@ -7,13 +7,22 @@ juke.config(function ($stateProvider) {
   .state('playlist', {
     url: '/playlists/new',
     templateUrl: '/js/playlist/templates/playlist.html',
-    controller: 'PlaylistCtrl'
-  });
+    controller: 'PlaylistsCtrl'
+  })
+
+  .state('singleplaylist', {
+  	url: '/playlists/:id',
+  	templateUrl: '/js/playlist/templates/singleplaylist.html',
+  	controller: 'SinglePlaylistCtrl',
+  	resolve: {
+      thePlaylist: function (PlaylistFactory, $stateParams) {
+        return PlaylistFactory.fetchById($stateParams.id);
+      }
+    }
+  })
 
 
 });
-
-
 
 
 

@@ -1,22 +1,35 @@
 'use strict';
 
-juke.controller('PlaylistCtrl', function ($scope, PlaylistFactory) {
+juke.controller('PlaylistsCtrl', function ($scope, PlaylistFactory) {
 	
+	//ng-show for the form data
+	$scope.goAway = true;
+
 	$scope.click = function() {
-		console.log($scope.playlist);
+		//toggle the form data 
+		$scope.goAway = !$scope.goAway;
 		PlaylistFactory.create($scope.playlist)
-		.then(function() {
+		.then(function(data) {
+			console.log("this is what was saved", data);
 			$scope.playlist.name = "";
 			$scope.playlistForm.$setPristine(true);
-			return PlaylistFactory.getAll();
+		// 	return PlaylistFactory.fetchAll();
+		// })
+		// .then(function(data) {
+		// 	console.log(data);
 		})
-		.then(function(data) {
-			$scope.allPlaylists = data;
-			console.log(data);
-			console.log($scope.allPlaylists)
-		});
-		
 	};
-	// database is now being populated
+});
+
+juke.controller('SinglePlaylistCtrl', function ($scope, PlaylistFactory, thePlaylist) {
+	$scope.thePlaylist = thePlaylist;
+});
+
+juke.controller('PlaylistListCtrl', function ($scope, PlaylistFactory) {
+	
+	PlaylistFactory.fetchAll()
+	.then(function(data) {
+		$scope.playlistList = data;
+	});
 	
 });
